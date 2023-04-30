@@ -117,6 +117,15 @@ class _PodVideoController extends _PodUiController {
       isOverlayVisible = true;
       update(['overlay']);
       update(['update-all']);
+      //auto hide overlay after 5 seconds
+      showOverlayTimer?.cancel();
+      showOverlayTimer = Timer(const Duration(seconds: 5), () {
+        if (isOverlayVisible) {
+          isOverlayVisible = false;
+          update(['overlay']);
+          update(['update-all']);
+        }
+      });
       return;
     }
     if (isOverlayVisible) {
@@ -124,7 +133,7 @@ class _PodVideoController extends _PodUiController {
       update(['overlay']);
       update(['update-all']);
       showOverlayTimer?.cancel();
-      showOverlayTimer = Timer(const Duration(seconds: 3), () {
+      showOverlayTimer = Timer(const Duration(seconds: 5), () {
         if (isOverlayVisible) {
           isOverlayVisible = false;
           update(['overlay']);
